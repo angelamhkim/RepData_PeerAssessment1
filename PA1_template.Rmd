@@ -33,7 +33,7 @@ totDay <- dat %>% group_by(date) %>% summarize(steps=sum(steps, na.rm=T))
 
 ###2. Make a histogram of the total number of steps taken each day. 
 ```{r}
-hist(totDay$steps, xlab="Steps", main="Histogram of Steps Taken Each Day", col="lightblue")
+plot1 <- hist(totDay$steps, xlab="Steps", main="Histogram of Steps Taken Each Day", col="lightblue")
 ```
 
 ###3. Calculate and report the mean and median of the total number of steps taken each day. 
@@ -53,7 +53,7 @@ totInt <- dat %>% group_by(interval) %>% summarize(steps=mean(steps, na.rm=T))
 
 Plot the time series. 
 ```{r}
-with(totInt, plot(interval, steps, type="l", lwd=2, xlab="5-minute interval", ylab="average number of steps", main="Time Series Plot of Average Number of Steps"))
+plot2 <- with(totInt, plot(interval, steps, type="l", lwd=2, xlab="5-minute interval", ylab="average number of steps", main="Time Series Plot of Average Number of Steps"))
 ```
 
 ###2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps. 
@@ -87,7 +87,7 @@ for (i in 1:nrow(filledDat)){
 
 ###4. Make a histogram of the total number of steps taken each day.
 ```{r}
-hist(tapply(filledDat$steps, filledDat$date, sum), col="lightblue", xlab="number of steps", main="Histogram of total steps taken each day")
+plot3 <- hist(tapply(filledDat$steps, filledDat$date, sum), col="lightblue", xlab="number of steps", main="Histogram of total steps taken each day")
 ```
 
 ###Calculate and report the **mean** and **median** total number of steps taken per day. 
@@ -118,5 +118,6 @@ filledDat <- cbind(filledDat, weekday.f)
 totInt <- filledDat %>% group_by(interval, weekday.f) %>% summarize(steps=mean(steps))
 
 library(lattice)
-xyplot(steps~interval|weekday.f, data=totInt, layout=c(1,2), type="l")
+plot4 <- xyplot(steps~interval|weekday.f, data=totInt, layout=c(1,2), type="l")
+print(plot4)
 ```

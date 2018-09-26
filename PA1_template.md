@@ -38,7 +38,7 @@ totDay <- dat %>% group_by(date) %>% summarize(steps=sum(steps, na.rm=T))
 ###2. Make a histogram of the total number of steps taken each day. 
 
 ```r
-hist(totDay$steps, xlab="Steps", main="Histogram of Steps Taken Each Day", col="lightblue")
+plot1 <- hist(totDay$steps, xlab="Steps", main="Histogram of Steps Taken Each Day", col="lightblue")
 ```
 
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
@@ -63,7 +63,7 @@ totInt <- dat %>% group_by(interval) %>% summarize(steps=mean(steps, na.rm=T))
 Plot the time series. 
 
 ```r
-with(totInt, plot(interval, steps, type="l", lwd=2, xlab="5-minute interval", ylab="average number of steps", main="Time Series Plot of Average Number of Steps"))
+plot2 <- with(totInt, plot(interval, steps, type="l", lwd=2, xlab="5-minute interval", ylab="average number of steps", main="Time Series Plot of Average Number of Steps"))
 ```
 
 ![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png)
@@ -103,7 +103,7 @@ for (i in 1:nrow(filledDat)){
 ###4. Make a histogram of the total number of steps taken each day.
 
 ```r
-hist(tapply(filledDat$steps, filledDat$date, sum), col="lightblue", xlab="number of steps", main="Histogram of total steps taken each day")
+plot3 <- hist(tapply(filledDat$steps, filledDat$date, sum), col="lightblue", xlab="number of steps", main="Histogram of total steps taken each day")
 ```
 
 ![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png)
@@ -139,7 +139,8 @@ filledDat <- cbind(filledDat, weekday.f)
 totInt <- filledDat %>% group_by(interval, weekday.f) %>% summarize(steps=mean(steps))
 
 library(lattice)
-xyplot(steps~interval|weekday.f, data=totInt, layout=c(1,2), type="l")
+plot4 <- xyplot(steps~interval|weekday.f, data=totInt, layout=c(1,2), type="l")
+print(plot4)
 ```
 
 ![plot of chunk unnamed-chunk-15](figure/unnamed-chunk-15-1.png)
